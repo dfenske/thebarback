@@ -1,0 +1,13 @@
+# EditorConfig is awesome: http://EditorConfig.org
+# If you don't have it, go install the plugins for VisualStudio, Atom, Notepad++, or whatever you're using
+
+# top-most EditorConfig file
+root = true
+
+[*.js]
+indent_style = space
+indent_size = 4
+
+[*.cs]
+indent_style = space
+indent_size = 4

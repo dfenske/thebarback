@@ -1,0 +1,6 @@
+{
+	"extends": "eslint-config-payscale",
+    "rules": {
+        "react/prop-types": 0
+    }
+}
