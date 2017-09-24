@@ -2,6 +2,9 @@
   "name": "thebarback",
   "private": true,
   "version": "0.0.0",
+  "scripts": {
+    "dev": "node_modules/.bin/webpack-dev-server --inline --hot"
+  },
   "devDependencies": {
     "@types/history": "4.6.0",
     "@types/react": "15.0.35",
