@@ -1,83 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
 html {
     scroll-behavior: smooth;    
 }
 
 body, * {
-    font-family: Roboto;
+    font-family: Quicksand, Roboto, sans-serif;
 }
 
-.main-nav li .glyphicon {
-    margin-right: 10px;
-}
-
-/* Highlighting rules for nav menu items */
-.main-nav li a.active,
-.main-nav li a.active:hover,
-.main-nav li a.active:focus {
-    background-color: #4189C7;
-    color: white;
-}
-
-/* Keep the nav menu independent of scrolling and on top of other items */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
-
-@media (max-width: 767px) {
-    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-    body {
-        padding-top: 50px;
-    }
-}
-
-@media (min-width: 768px) {
-    /* On small screens, convert the nav menu to a vertical sidebar */
-    .main-nav {
-        height: 100%;
-        width: calc(25% - 20px);
-    }
-
-        .main-nav .navbar {
-            border-radius: 0px;
-            border-width: 0px;
-            height: 100%;
-        }
-
-        .main-nav .navbar-header {
-            float: none;
-        }
-
-        .main-nav .navbar-collapse {
-            border-top: 1px solid #444;
-            padding: 0px;
-        }
-
-        .main-nav .navbar ul {
-            float: none;
-        }
-
-        .main-nav .navbar li {
-            float: none;
-            font-size: 15px;
-            margin: 6px;
-        }
-
-            .main-nav .navbar li a {
-                padding: 10px 16px;
-                border-radius: 4px;
-            }
-
-        .main-nav .navbar a {
-            /* If a menu item's text is too long, truncate it */
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+.nav-wrapper ul li {
+    text-align: center;
 }
 
 .scroll-down-button {
@@ -92,7 +24,7 @@ body, * {
     margin-left: 15px;
 }
 
-.brand-logo:hover {
+.brand-logo:hover, .brand-logo:focus {
     text-decoration: none;
     color: #fff;
 }
@@ -101,9 +33,10 @@ body, * {
     margin-right: 15px;
 }
 
-.nav-link {
+.nav-link, .nav-link:focus {
     color: #AAA0A0;
     font-size: 14px;
+    text-decoration: none;
 }
 
     .nav-link:hover {
@@ -146,3 +79,67 @@ body, * {
         width: 100%;
         text-align: center;
     }
+
+.card {
+    margin: 30px 15px;
+}
+
+.card-title {
+    display: none;
+}
+
+.card:hover .card-title {
+    display: inline-block;
+}
+
+.card-title.right {
+    width: 100%;
+    text-align: right;
+}
+
+
+.card-image {
+    position: relative;
+    height: 150px;
+}
+
+    .card-image.one {
+        background: url('https://thebarback.blob.core.windows.net/images/david-straight.jpg');
+        background-size: cover;
+    }
+
+    .card-image.two {
+        background: url('https://thebarback.blob.core.windows.net/images/jez-timms.jpg');
+        background-size: cover;
+    }
+
+    .card-image.three {
+        background: url('https://thebarback.blob.core.windows.net/images/dan-gold.jpg');
+        background-size: cover;
+    }
+
+.card-layer {
+    background-color: #000;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+}
+
+.card-image:hover > .card-layer {
+    opacity: 0.6;
+}
+
+.card-layer .card-title {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
