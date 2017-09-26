@@ -66,12 +66,15 @@ body, * {
         position: absolute;
         top: 50px;
         left: 50px;
+        right: 50px;
         font-size: 24px;
     }
 
+@media(min-width: 767px) {
     .layer > .snippet {
         width: 40%;
     }
+}
 
     .layer > div.float-bottom {
         position: absolute;
@@ -101,21 +104,25 @@ body, * {
 .card-image {
     position: relative;
     height: 150px;
+    cursor: pointer;
 }
 
     .card-image.one {
         background: url('https://thebarback.blob.core.windows.net/images/david-straight.jpg');
         background-size: cover;
+        background-position-y: center;
     }
 
     .card-image.two {
         background: url('https://thebarback.blob.core.windows.net/images/jez-timms.jpg');
         background-size: cover;
+        background-position-y: center;
     }
 
     .card-image.three {
         background: url('https://thebarback.blob.core.windows.net/images/dan-gold.jpg');
         background-size: cover;
+        background-position-y: center;
     }
 
 .card-layer {
@@ -127,14 +134,14 @@ body, * {
     width: 100%;
     height: 100%;
     color: #fff;
-    transition: opacity .5s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
+    transition: opacity .3s ease-out;
+    -moz-transition: opacity .3s ease-out;
+    -webkit-transition: opacity .3s ease-out;
+    -o-transition: opacity .3s ease-out;
 }
 
 .card-image:hover > .card-layer {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .card-layer .card-title {
@@ -142,4 +149,23 @@ body, * {
     height: 100%;
     text-align: center;
     vertical-align: middle;
+}
+
+.card-content {
+    font-size: 16px;
+}
+
+@media(min-width: 992px) {
+    .card-content {
+        min-height: 138px;
+    }
+}
+
+.card-action {
+    font-size: 16px;
+}
+
+.card .card-action > a:hover {
+    color: #e65100 !important;
+    text-decoration: none;
 }

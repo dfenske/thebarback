@@ -15,47 +15,47 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
         <div id="content" className="container">
           <div className="row">
             <div className="col s12 l4">
-              <div className="card small">
+              <div className="card">
                 <div className="card-image one">
                   <div className="card-layer">
-                    <span className="card-title right">What do you have?</span>
+                    <a href="/search"><span className="card-title right">What do you have?</span></a>
                   </div>
                 </div>
                 <div className="card-content">
                   <p>Tell us what's in your bar and we will suggest some cocktails that don't require putting on pants to make.</p>
                 </div>
                 <div className="card-action">
-                  <a href="#">Search by ingredients or tags </a>
+                  <a href="/search">Search</a>
                 </div>
               </div>
             </div>
             <div className="col s12 l4">
-              <div className="card small">
+              <div className="card">
                 <div className="card-image two">
                   <div className="card-layer">
-                    <span className="card-title right">Build a drink</span>
+                    <a href="/search"><span className="card-title right">Build a drink</span></a>
                   </div>
                 </div>
                 <div className="card-content">
                   <p>Start from the ground up - tell us your base liquor, your mixers, and any other special touches that you are craving.</p>
                 </div>
                 <div className="card-action">
-                  <a href="#">Build a drink</a>
+                  <a href="/search">Build a drink</a>
                 </div>
               </div>
             </div>
             <div className="col s12 l4">
-              <div className="card small">
+              <div className="card ">
                 <div className="card-image three">
                   <div className="card-layer">
-                    <span className="card-title white-text">Surprise me!</span>
+                    <a href="/surprise"><span className="card-title white-text">Surprise me!</span></a>
                   </div>
                 </div>
                 <div className="card-content">
                   <p>Feeling adventurous? We dare you to drink whatever shows up first...</p>
                 </div>
                 <div className="card-action">
-                  <a href="#">Surprise drink!</a>
+                  <a href="/surprise">Surprise me!</a>
                 </div>
               </div>
             </div>
