@@ -11,7 +11,9 @@ export class Layout extends React.Component<LayoutProps, {}> {
     return (
       <div>
         <Header />
-        {this.props.children}
+        <main>
+          {this.props.children}
+        </main>
         <Footer />
       </div>
     );
