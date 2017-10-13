@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "module": "commonjs",
+    "lib": [
+      "es6",
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
     "target": "es5",
     "jsx": "react",
     "sourceMap": true,

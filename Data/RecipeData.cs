@@ -61,7 +61,7 @@ namespace thebarback.Data
                         while(reader.Read())
                         {
                             var ingredient = new CocktailIngredient();
-                            ingredient.Amount = reader.GetDecimal(amount);
+                            ingredient.Amount = reader.GetDouble(amount);
                             ingredient.Measurement = reader.GetString(measurement);
                             ingredient.IngredientName = reader.GetString(ingredientName);
                             ingredients.Add(ingredient);
