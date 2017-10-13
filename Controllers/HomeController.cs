@@ -4,14 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using thebarback.Data;
 
 namespace thebarback.Controllers
 {
     public class HomeController : Controller
     {
+        public MockRecipeData recipeDatabase;
+
+        public HomeController()
+        {
+            recipeDatabase = new MockRecipeData();
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var recipe = recipeDatabase.GetRecipe(1);
+            return View(recipe);
         }
 
         public IActionResult Error()

@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "@types/history": "4.6.0",
+    "@types/promise": "^7.1.30",
     "@types/react": "15.0.35",
     "@types/react-dom": "15.5.1",
     "@types/react-hot-loader": "3.0.3",
@@ -29,7 +30,7 @@
     "react-hot-loader": "3.0.0-beta.7",
     "react-router-dom": "4.1.1",
     "style-loader": "0.18.2",
-    "typescript": "2.4.1",
+    "typescript": "^2.5.2",
     "url-loader": "0.5.9",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2"

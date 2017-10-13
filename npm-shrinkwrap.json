@@ -8,6 +8,12 @@
       "resolved": "https://registry.npmjs.org/@types/history/-/history-4.6.0.tgz",
       "dev": true
     },
+    "@types/promise": {
+      "version": "7.1.30",
+      "from": "@types/promise@latest",
+      "resolved": "https://proget.bizcont.underpaid.com/npm/payscale-npm/@types/promise/-/promise-7.1.30.tgz",
+      "dev": true
+    },
     "@types/react": {
       "version": "15.0.35",
       "from": "@types/react@15.0.35",
@@ -3017,9 +3023,9 @@
       "dev": true
     },
     "typescript": {
-      "version": "2.4.1",
-      "from": "typescript@2.4.1",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-2.4.1.tgz",
+      "version": "2.5.2",
+      "from": "typescript@2.5.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-2.5.2.tgz",
       "dev": true
     },
     "ua-parser-js": {
