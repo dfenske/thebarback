@@ -15,5 +15,6 @@ namespace thebarback.Models
         public List<CocktailIngredient> Ingredients { get; set; }
         public List<CocktailIngredient> Garnishes { get; set; }
         public List<Tag> Tags { get; set; }
+        public string ImageUrl { get; internal set; }
     }
 }
