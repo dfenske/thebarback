@@ -11,4 +11,5 @@ export interface IRecipe {
   garnishes: Array<IIngredient>,
   tags: Array<ITag>,
   imageUrl: string,
+  photoCred: string,
 }
