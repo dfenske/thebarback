@@ -11,6 +11,7 @@
     <None Remove="ClientApp\components\About.tsx" />
     <None Remove="ClientApp\components\Search.tsx" />
     <None Remove="ClientApp\components\surprise.tsx" />
+    <None Remove="ClientApp\models\ITag.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
     <TypeScriptCompile Include="ClientApp\components\About.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Search.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Surprise.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\ITag.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

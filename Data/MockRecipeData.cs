@@ -118,6 +118,53 @@ namespace thebarback.Data
                     Tags = new List<Tag>() {new Tag() {ID = 1, Name = "Refreshing"}, new Tag() {ID = 2, Name = "Gin"}},
                     ImageUrl = "https://thebarback.blob.core.windows.net/images/david-straight.jpg"
                 },
+                new Recipe
+                {
+                    Description = "A cool, refreshing choice.",
+                    Drinkware = "Coupe",
+                    Garnishes = new List<CocktailIngredient>()
+                    {
+                        new CocktailIngredient()
+                        {
+                            Amount = 1,
+                            CocktailID = 1,
+                            ID = 1,
+                            IngredientName = "Cherry",
+                            Measurement = ""
+                        }
+                    },
+                    Ingredients = new List<CocktailIngredient>()
+                    {
+                        new CocktailIngredient()
+                        {
+                            Amount = 1.5,
+                            CocktailID = 1,
+                            ID = 1,
+                            IngredientName = "Gin",
+                            Measurement = "oz"
+                        },
+                        new CocktailIngredient()
+                        {
+                            Amount = 1,
+                            CocktailID = 1,
+                            ID = 1,
+                            IngredientName = "Sweet Vermouth",
+                            Measurement = "oz"
+                        },
+                        new CocktailIngredient()
+                        {
+                            Amount = 1,
+                            CocktailID = 1,
+                            ID = 1,
+                            IngredientName = "Campari",
+                            Measurement = "oz"
+                        },
+                    },
+                    Name = "Negroni",
+                    Preparation = "Mix all ingredients in a cocktail shaker with ice. Stir, then strain into glass.",
+                    Tags = new List<Tag>() {new Tag() {ID = 1, Name = "Refreshing"}, new Tag() {ID = 2, Name = "Gin"}},
+                    ImageUrl = "https://thebarback.blob.core.windows.net/images/david-straight.jpg"
+                }
             };
 
         public Recipe GetRecipe(int id)
