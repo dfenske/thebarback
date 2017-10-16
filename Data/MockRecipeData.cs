@@ -120,50 +120,51 @@ namespace thebarback.Data
                 },
                 new Recipe
                 {
-                    Description = "A cool, refreshing choice.",
-                    Drinkware = "Coupe",
+                    Description = "Over a strong gin base, the Cynar lends a delcious bitter, vegetal flavour, with the dry vermouth lending some floral notes and also helping to emphasise the sweet characteristics of the amaro. The way the three ingredients work together is really delicious, and the resulting cocktail is at once reminiscent of the Negroni, yet distinct in its own right.",
+                    Drinkware = "Rocks",
                     Garnishes = new List<CocktailIngredient>()
                     {
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = "",
                             CocktailID = 1,
                             ID = 1,
-                            IngredientName = "Cherry",
+                            IngredientName = "Orange Twist",
                             Measurement = ""
                         }
                     },
                     Ingredients = new List<CocktailIngredient>()
                     {
-                        new CocktailIngredient()
-                        {
-                            Amount = 1.5,
-                            CocktailID = 1,
-                            ID = 1,
-                            IngredientName = "Gin",
-                            Measurement = "oz"
-                        },
-                        new CocktailIngredient()
+                         new CocktailIngredient()
                         {
                             Amount = 1,
                             CocktailID = 1,
                             ID = 1,
-                            IngredientName = "Sweet Vermouth",
+                            IngredientName = "Tanqueray dry gin",
                             Measurement = "oz"
                         },
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = "2/3",
                             CocktailID = 1,
                             ID = 1,
-                            IngredientName = "Campari",
+                            IngredientName = "Cynar",
                             Measurement = "oz"
                         },
+                        new CocktailIngredient()
+                        {
+                            Amount = "1/2",
+                            CocktailID = 1,
+                            ID = 1,
+                            IngredientName = "Noilly Prat dry vermouth",
+                            Measurement = "oz"
+                        }
                     },
-                    Name = "Negroni",
-                    Preparation = "Mix all ingredients in a cocktail shaker with ice. Stir, then strain into glass.",
+                    Name = "Berlioni",
+                    Preparation = "Stir over ice then strain in to an ice filled old-fashioned glass. Garnish with a large twist of orange zest.",
                     Tags = new List<Tag>() {new Tag() {ID = 1, Name = "Refreshing"}, new Tag() {ID = 2, Name = "Gin"}},
-                    ImageUrl = "https://thebarback.blob.core.windows.net/images/david-straight.jpg"
+                    ImageUrl = "https://thebarback.blob.core.windows.net/images/berlioni.jpg",
+                    PhotoCred = "Gonçalo De Sousa Monteiro, Berlin bartender and Traveling Mixologist"
                 }
             };
 

@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Recipe } from '../components/Recipe';
 
 export class Surprise extends React.Component<RouteComponentProps<{}>, {}> {
   public render() {
@@ -12,7 +13,7 @@ export class Surprise extends React.Component<RouteComponentProps<{}>, {}> {
             <h4>Description</h4>
             <div className="description">
               Over a strong gin base, the Cynar lends a delcious bitter, vegetal flavour, with the dry vermouth lending some floral notes and also helping to emphasise the sweet characteristics of the amaro. The way the three ingredients work together is really delicious, and the resulting cocktail is at once reminiscent of the Negroni, yet distinct in its own right.
-        </div>
+            </div>
             <h4>Ingredients</h4>
             <ul className="ingredients">
               <li>1 oz Tanqueray dry gin</li>
