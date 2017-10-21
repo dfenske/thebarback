@@ -10,10 +10,10 @@ interface ISearchState {
 
 export class Search extends React.Component<RouteComponentProps<{}>, ISearchState> {
   changeRecipe(): any {
-    if(this.state.recipeId) {
-      this.getRecipe((this.state.recipeId + 1) % 3);
+    if(this.state.recipeId != null ) {
+      this.getRecipe((this.state.recipeId + 1) % 3 + 1);
     } else {
-      this.getRecipe(0);
+      this.getRecipe(1);
     }
   }
 
@@ -23,7 +23,7 @@ export class Search extends React.Component<RouteComponentProps<{}>, ISearchStat
   }
 
   componentWillMount() {
-    this.getRecipe(1);
+    this.changeRecipe();
   }
 
   private getRecipe(id: number): void {
