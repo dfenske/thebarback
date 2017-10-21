@@ -22,12 +22,13 @@ main {
     text-align: center;
 }
 
-.scroll-down-button {
+a {
     color: #fff;    
 }
 
-    .scroll-down-button:hover {
+    a:hover, a:active, a:focus {
         color: #bcaaa4;
+        text-decoration: none;
     }
 
 .brand-logo {

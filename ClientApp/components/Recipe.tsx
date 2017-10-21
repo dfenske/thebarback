@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ITag, IIngredient, IRecipe, IRecipeProps } from "../models/index";
+import { RatioMapping } from './RatioMapping'; 
 
 export class Recipe extends React.Component<IRecipeProps, {}> {
   public render() {
@@ -28,7 +29,9 @@ export class Recipe extends React.Component<IRecipeProps, {}> {
               {ingredients.map((ingredient, index) => {
                 return (
                   <li key={`${ingredient.ingredientName}` + index}>
-                    {ingredient.amount} {ingredient.measurement}{" "}
+                    {ingredient.amount != 0 && 
+                    <RatioMapping decimal={ingredient.amount} />
+                    } {ingredient.measurement}{" "}
                     {ingredient.ingredientName}
                   </li>
                 );
@@ -38,7 +41,7 @@ export class Recipe extends React.Component<IRecipeProps, {}> {
             <div className="directions">{preparation}</div>
             {drinkware && <div>Glass: {drinkware}</div>}
             {service && <div>Serve: {service}</div>}
-            {garnishes && (
+            {(garnishes && garnishes.length > 0) && (
               <div>
                 Garnish:{" "}
                 {garnishes.map((g, index) => {
@@ -46,7 +49,7 @@ export class Recipe extends React.Component<IRecipeProps, {}> {
                 })}
               </div>
             )}
-            {tags && (
+            {(tags && tags.length > 0) && (
               <div>
                 Tags:{" "}
                 {tags
@@ -59,9 +62,10 @@ export class Recipe extends React.Component<IRecipeProps, {}> {
           </div>
           <div className="col s6">
             <img src={imageUrl} className="cocktail-image" />
-            <h5>
+            {photoCred && <h5>
               <em>Photo Credit: {photoCred}</em>
             </h5>
+            }
           </div>
         </div>
       </div>

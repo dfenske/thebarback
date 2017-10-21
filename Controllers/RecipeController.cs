@@ -9,12 +9,10 @@ namespace thebarback.Controllers
 {
     public class RecipeController
     {
-        //public MockRecipeData recipeDatabase;
         public RecipeData recipeDatabase;
 
         public RecipeController()
         {
-            //recipeDatabase = new MockRecipeData();
             recipeDatabase = new RecipeData();
         }
 
