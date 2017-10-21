@@ -13,10 +13,11 @@ namespace thebarback.Data
             //Create method at top of class that initializes database connection upon website load?
             //Store credentials in settings file?
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "{db server}";
-            builder.UserID = "{admin ID}";
-            builder.Password = "{password}";
-            builder.InitialCatalog = "{db name}";
+            builder.DataSource = "thebarbackserver.database.windows.net";
+            builder.UserID = "thebarback";
+            builder.Password = "Negroni1";
+            builder.InitialCatalog = "thebarbackdb";
+            builder.MultipleActiveResultSets = true;
 
             Recipe recipe = new Recipe();
             List<CocktailIngredient> ingredients = new List<CocktailIngredient>();
@@ -34,12 +35,13 @@ namespace thebarback.Data
                 sbCoc.Append("INNER JOIN Drinkware D ON C.DrinkwareID = D.DrinkwareID ");
                 sbCoc.Append("WHERE CocktailID = ");
                 sbCoc.Append(cocktailID);
+                sbCoc.Append(";");
 
                 string sqlCoc = sbCoc.ToString();
 
-                using (SqlCommand command = new SqlCommand(sqlCoc, connection))
+                using (SqlCommand cmdCocktail = new SqlCommand(sqlCoc, connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = cmdCocktail.ExecuteReader())
                     {
                         int name = reader.GetOrdinal("CocktailName");
                         int desc = reader.GetOrdinal("Description");
@@ -60,22 +62,23 @@ namespace thebarback.Data
                 }
 
                 StringBuilder sbIng = new StringBuilder();
-                sbIng.Append("SELECT Amount, MeasurementAbbrev, IngredientName ");
+                sbIng.Append("SELECT Amount, COALESCE(MeasurementAbbrev, MeasurementName) AS Measurement, IngredientName ");
                 sbIng.Append("FROM CocktailIngredient CI ");
                 sbIng.Append("INNER JOIN Ingredients I ON CI.IngredientID = I.IngredientID ");
                 sbIng.Append("INNER JOIN Cocktails C ON CI.CocktailID = C.CocktailID ");
                 sbIng.Append("INNER JOIN Measurements M ON CI.MeasurementID = M.MeasurementID ");
                 sbIng.Append("WHERE C.CocktailID = ");
                 sbIng.Append(cocktailID);
+                sbIng.Append(";");
 
                 string sqlIng = sbIng.ToString();
 
-                using (SqlCommand command = new SqlCommand(sqlIng, connection))
+                using (SqlCommand cmdIngredients = new SqlCommand(sqlIng, connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = cmdIngredients.ExecuteReader())
                     {
                         int amount = reader.GetOrdinal("Amount");
-                        int measurement = reader.GetOrdinal("MeasurementAbbrev");
+                        int measurement = reader.GetOrdinal("Measurement");
                         int ingredientName = reader.GetOrdinal("IngredientName");
 
                         //Assign values from ingredient query to new Cocktail Ingredient objects
@@ -83,7 +86,7 @@ namespace thebarback.Data
                         while (reader.Read())
                         {
                             var ingredient = new CocktailIngredient();
-                            ingredient.Amount = reader.GetDouble(amount);
+                            ingredient.Amount = reader.GetDecimal(amount);
                             ingredient.Measurement = reader.GetString(measurement);
                             ingredient.IngredientName = reader.GetString(ingredientName);
                             ingredients.Add(ingredient);
@@ -96,12 +99,13 @@ namespace thebarback.Data
                 sbGarn.Append("INNER JOIN Garnish G ON CG.GarnishID = G.GarnishID ");
                 sbGarn.Append("WHERE CG.CocktailID = ");
                 sbGarn.Append(cocktailID);
+                sbGarn.Append(";");
 
                 string sqlGarn = sbGarn.ToString();
 
-                using (SqlCommand command = new SqlCommand(sqlGarn, connection))
+                using (SqlCommand cmdGarnish = new SqlCommand(sqlGarn, connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = cmdGarnish.ExecuteReader())
                     {
                         int gar = reader.GetOrdinal("GarnishName");
 
@@ -115,77 +119,37 @@ namespace thebarback.Data
                         }
                     }
                 }
+
+                StringBuilder sbPhoto = new StringBuilder();
+                sbPhoto.Append("SELECT PhotoURL, PhotoCredit FROM Photo P ");
+                sbPhoto.Append("INNER JOIN CocktailPhoto CP ON P.PhotoID = CP.PhotoID ");
+                sbPhoto.Append("INNER JOIN Cocktails C ON C.CocktailID = CP.CocktailID ");
+                sbPhoto.Append("WHERE C.CocktailID = ");
+                sbPhoto.Append(cocktailID);
+                sbPhoto.Append(";");
+
+                string sqlPhoto = sbPhoto.ToString();
+
+                using (SqlCommand cmdPhoto = new SqlCommand(sqlPhoto, connection))
+                {
+                    using (SqlDataReader reader = cmdPhoto.ExecuteReader())
+                    {
+                        int photoURL = reader.GetOrdinal("PhotoURL");
+                        int photoCred = reader.GetOrdinal("PhotoCredit");
+
+                        //Assign values from garnish query to Cocktail Ingredient objects
+                        //Add new ingredient objects to separate garnish list
+                        while (reader.Read())
+                        {
+                            recipe.ImageUrl = reader.GetString(photoURL);
+                            if (!reader.IsDBNull(photoCred))
+                            {
+                                recipe.PhotoCred = reader.GetString(photoCred);
+                            }
+                        }
+                    }
+                }
             }
-
-                //string connectionString = null;
-                //SqlConnection connection;
-
-
-                //string ingSql = null;
-                //string garnSql = null;
-                //string cocSql = null;
-
-                //connectionString = @"data source=.\sqlexpress;initial catalog=Barback;integrated security=true;";
-
-                //ingSql = String.Format("SELECT Amount, MeasurementAbbrev, IngredientName FROM CocktailIngredient CI INNER JOIN Ingredients I ON CI.IngredientID = I.IngredientID INNER JOIN Cocktails C ON CI.CocktailID = C.CocktailID INNER JOIN Measurements M ON CI.MeasurementID = M.MeasurementID WHERE C.CocktailID = {0}", cocktailID);
-                //garnSql = String.Format("SELECT GarnishName FROM CocktailGarnish CG INNER JOIN Garnish G ON CG.GarnishID = G.GarnishID WHERE CG.CocktailID = {0}", cocktailID);
-                //cocSql = String.Format("SELECT CocktailName,[Description],Preparation,ServiceName,DrinkwareName FROM Cocktails C INNER JOIN Service S ON C.ServiceID = S.ServiceID INNER JOIN Drinkware D ON C.DrinkwareID = D.DrinkwareID WHERE CocktailID = {0}", cocktailID);
-
-                //using (connection = new SqlConnection(connectionString))
-                //{
-                //    connection.Open();
-                //    using (var cmd = new SqlCommand(cocSql, connection))
-                //    {
-                //        using (SqlDataReader reader = cmd.ExecuteReader())
-                //        {
-                //            int name = reader.GetOrdinal("CocktailName");
-                //            int desc = reader.GetOrdinal("Description");
-                //            int prep = reader.GetOrdinal("Preparation");
-                //            int serv = reader.GetOrdinal("ServiceName");
-                //            int drink = reader.GetOrdinal("DrinkwareName");
-                //            while (reader.Read())
-                //            {
-                //                recipe.Name = reader.GetString(name);
-                //                recipe.Description = reader.GetString(desc);
-                //                recipe.Preparation = reader.GetString(prep);
-                //                recipe.Service = reader.GetString(serv);
-                //                recipe.Drinkware = reader.GetString(drink);
-                //            }
-                //        }
-                //    }
-
-                //    using (var cmd = new SqlCommand(ingSql, connection))
-                //    {
-                //        using (SqlDataReader reader = cmd.ExecuteReader())
-                //        {
-                //            int amount = reader.GetOrdinal("Amount");
-                //            int measurement = reader.GetOrdinal("MeasurementAbbrev");
-                //            int ingredientName = reader.GetOrdinal("IngredientName");
-                //            while(reader.Read())
-                //            {
-                //                var ingredient = new CocktailIngredient();
-                //                ingredient.Amount = reader.GetDouble(amount);
-                //                ingredient.Measurement = reader.GetString(measurement);
-                //                ingredient.IngredientName = reader.GetString(ingredientName);
-                //                ingredients.Add(ingredient);
-                //            }
-                //        }
-                //    }
-
-                //    using (var cmd = new SqlCommand(garnSql, connection))
-                //    {
-                //        using (SqlDataReader reader = cmd.ExecuteReader())
-                //        {
-                //            int gar = reader.GetOrdinal("GarnishName");
-                //            while(reader.Read())
-                //            {
-                //                var ingredient = new CocktailIngredient();
-                //                ingredient.IngredientName = reader.GetString(gar);
-                //                garnish.Add(ingredient);
-                //            }
-                //        }
-                //    }
-                //}
 
             recipe.Garnishes = garnish;
             recipe.Ingredients = ingredients;

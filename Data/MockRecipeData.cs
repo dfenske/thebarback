@@ -18,7 +18,7 @@ namespace thebarback.Data
                     {
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Orange Twist",
@@ -29,7 +29,7 @@ namespace thebarback.Data
                     {
                         new CocktailIngredient()
                         {
-                            Amount = 2,
+                            Amount = 2M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Bourbon",
@@ -37,23 +37,23 @@ namespace thebarback.Data
                         },
                         new CocktailIngredient()
                         {
-                            Amount = "A few drops",
+                            Amount = 0M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Angostura Bitters",
-                            Measurement = ""
+                            Measurement = "A few drops"
                         },
                         new CocktailIngredient()
                         {
-                            Amount = "A splash",
+                            Amount = 0M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Water",
-                            Measurement = ""
+                            Measurement = "A splash"
                         },
                         new CocktailIngredient()
                         {
-                            Amount = "1",
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Sugar Cube",
@@ -79,7 +79,7 @@ namespace thebarback.Data
                     {
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Cherry",
@@ -90,7 +90,7 @@ namespace thebarback.Data
                     {
                         new CocktailIngredient()
                         {
-                            Amount = 1.5,
+                            Amount = 1.5M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Gin",
@@ -98,7 +98,7 @@ namespace thebarback.Data
                         },
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Sweet Vermouth",
@@ -106,7 +106,7 @@ namespace thebarback.Data
                         },
                         new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Campari",
@@ -126,7 +126,7 @@ namespace thebarback.Data
                     {
                         new CocktailIngredient()
                         {
-                            Amount = "",
+                            Amount = 0M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Orange Twist",
@@ -137,7 +137,7 @@ namespace thebarback.Data
                     {
                          new CocktailIngredient()
                         {
-                            Amount = 1,
+                            Amount = 1M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Tanqueray dry gin",
@@ -145,7 +145,7 @@ namespace thebarback.Data
                         },
                         new CocktailIngredient()
                         {
-                            Amount = "2/3",
+                            Amount = .66M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Cynar",
@@ -153,7 +153,7 @@ namespace thebarback.Data
                         },
                         new CocktailIngredient()
                         {
-                            Amount = "1/2",
+                            Amount = .5M,
                             CocktailID = 1,
                             ID = 1,
                             IngredientName = "Noilly Prat dry vermouth",
