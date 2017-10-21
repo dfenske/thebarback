@@ -9,11 +9,13 @@ namespace thebarback.Controllers
 {
     public class RecipeController
     {
-        public MockRecipeData recipeDatabase;
+        //public MockRecipeData recipeDatabase;
+        public RecipeData recipeDatabase;
 
         public RecipeController()
         {
-            recipeDatabase = new MockRecipeData();
+            //recipeDatabase = new MockRecipeData();
+            recipeDatabase = new RecipeData();
         }
 
         public IActionResult Get(int id)

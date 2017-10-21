@@ -10,11 +10,13 @@ namespace thebarback.Controllers
 {
     public class HomeController : Controller
     {
-        public MockRecipeData recipeDatabase;
+        //public MockRecipeData recipeDatabase;
+        public RecipeData recipeDatabase;
 
         public HomeController()
         {
-            recipeDatabase = new MockRecipeData();
+            //recipeDatabase = new MockRecipeData();
+            recipeDatabase = new RecipeData();
         }
 
         public IActionResult Index()

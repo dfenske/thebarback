@@ -7,7 +7,7 @@ namespace thebarback.Models
         public int ID { get; set; }
         public int CocktailID { get; set; }
         public string IngredientName { get; set; }
-        public Object Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Measurement { get; set; }
     }
 }
