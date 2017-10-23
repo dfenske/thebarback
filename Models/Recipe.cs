@@ -11,7 +11,7 @@ namespace thebarback.Models
         public string Description { get; set; }
         public string Preparation { get; set; }
         public string Drinkware { get; set; }
-        public string Service { get; set; }
+        public string Style { get; set; }
         public List<CocktailIngredient> Ingredients { get; set; }
         public List<CocktailIngredient> Garnishes { get; set; }
         public List<Tag> Tags { get; set; }
