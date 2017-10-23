@@ -29,9 +29,9 @@ namespace thebarback.Data
 
                 //Query to return Cocktail based on CocktailID
                 StringBuilder sbCoc = new StringBuilder();
-                sbCoc.Append("SELECT CocktailName, [Description], Preparation, ServiceName, DrinkwareName ");
+                sbCoc.Append("SELECT CocktailName, [Description], Preparation, StyleName, DrinkwareName ");
                 sbCoc.Append("FROM Cocktails C ");
-                sbCoc.Append("INNER JOIN Service S ON C.ServiceID = S.ServiceID ");
+                sbCoc.Append("INNER JOIN Style S ON C.StyleID = S.StyleID ");
                 sbCoc.Append("INNER JOIN Drinkware D ON C.DrinkwareID = D.DrinkwareID ");
                 sbCoc.Append("WHERE CocktailID = ");
                 sbCoc.Append(cocktailID);
@@ -46,7 +46,7 @@ namespace thebarback.Data
                         int name = reader.GetOrdinal("CocktailName");
                         int desc = reader.GetOrdinal("Description");
                         int prep = reader.GetOrdinal("Preparation");
-                        int serv = reader.GetOrdinal("ServiceName");
+                        int style = reader.GetOrdinal("StyleName");
                         int drink = reader.GetOrdinal("DrinkwareName");
 
                         //Assign values returned from SQL query to Recipe object
@@ -55,7 +55,7 @@ namespace thebarback.Data
                             recipe.Name = reader.GetString(name);
                             recipe.Description = reader.GetString(desc);
                             recipe.Preparation = reader.GetString(prep);
-                            recipe.Service = reader.GetString(serv);
+                            recipe.Style = reader.GetString(style);
                             recipe.Drinkware = reader.GetString(drink);
                         }
                     }
@@ -160,35 +160,84 @@ namespace thebarback.Data
         public List<Recipe> GetRecipes(string keyword)
         {
             List<Recipe> recipes = new List<Recipe>();
-            string connectionString = null;
-            SqlConnection connection;
-            string sql = null;
+            List<int> cocktailIDs = new List<int>();
 
-            connectionString = @"data source=.\sqlexpress;initial catalog=Barback;integrated security=true;";
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "thebarbackserver.database.windows.net";
+            builder.UserID = "thebarback";
+            builder.Password = "Negroni1";
+            builder.InitialCatalog = "thebarbackdb";
+            builder.MultipleActiveResultSets = true;
 
-            sql = String.Format("SELECT CocktailID FROM CocktailTag C INNER JOIN Tags T ON C.TagID = T.TagID WHERE TagName LIKE '%{0}%'", keyword);
-
-            using (connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 connection.Open();
-                using (var cmd = new SqlCommand(sql, connection))
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT c.CocktailID ");
+                sb.Append("FROM Cocktails c ");
+                sb.Append("LEFT JOIN CocktailIngredient ci ON c.CocktailID = ci.CocktailID ");
+                sb.Append("LEFT JOIN Ingredients i ON i.IngredientID = ci.IngredientID ");
+                sb.Append("LEFT JOIN CocktailTag ct ON c.CocktailID = ct.CocktailID ");
+                sb.Append("LEFT JOIN Tags t ON ct.TagID = t.TagID ");
+                sb.Append("LEFT JOIN CocktailGarnish cg ON c.CocktailID = cg.CocktailID ");
+                sb.Append("LEFT JOIN Garnish g ON cg.GarnishID = g.GarnishID ");
+                sb.Append("LEFT JOIN Drinkware d ON c.DrinkwareID = d.DrinkwareID ");
+                sb.Append("LEFT JOIN Style s ON s.StyleID = c.StyleID ");
+                sb.Append("WHERE StyleName LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR CocktailName LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR [Description] LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR Preparation LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR GarnishName LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR TagName LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("OR IngredientName LIKE '%");
+                sb.Append(keyword);
+                sb.Append("%' ");
+                sb.Append("GROUP BY c.CocktailID;");
+
+                string sql = sb.ToString();
+
+                using (SqlCommand cmdCocktailList = new SqlCommand(sql, connection))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmdCocktailList.ExecuteReader())
                     {
-                        int id = reader.GetOrdinal("CocktailID");
+                        int cocktailID = reader.GetOrdinal("CocktailID");
+
+                        //Assign values from garnish query to Cocktail Ingredient objects
+                        //Add new ingredient objects to separate garnish list
                         while (reader.Read())
                         {
-                            Recipe recipe = GetRecipe(reader.GetInt32(id));
-                            recipes.Add(recipe);
+                            cocktailIDs.Add(reader.GetInt32(cocktailID));
                         }
                     }
                 }
             }
+
+            foreach(int ID in cocktailIDs)
+            {
+                Recipe recipe = GetRecipe(ID);
+                recipes.Add(recipe);
+            }
+
             return recipes;
         }
 
         public List<Recipe> GetRecipes(List<string> keywords)
         {
+            //Return a list of CocktailIDs?
+            //Then use GetRecipe for each individual lookup?
             throw new NotImplementedException();
         }
     }

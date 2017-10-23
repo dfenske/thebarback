@@ -21,5 +21,11 @@ namespace thebarback.Controllers
             var recipe = recipeDatabase.GetRecipe(id);
             return new JsonResult(recipe);
         }
+
+        public IActionResult GetRecipes()
+        {
+            var recipe = recipeDatabase.GetRecipes("gin");
+            return new JsonResult(recipe);
+        }
     }
 }
