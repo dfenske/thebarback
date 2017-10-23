@@ -24,7 +24,7 @@ namespace thebarback.Controllers
 
         public IActionResult GetRecipes()
         {
-            var recipe = recipeDatabase.GetRecipes("gin");
+            var recipe = recipeDatabase.GetRecipes(new List<string> { "gin", "orange" });
             return new JsonResult(recipe);
         }
     }

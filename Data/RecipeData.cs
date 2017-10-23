@@ -157,7 +157,7 @@ namespace thebarback.Data
             return recipe;
         }
 
-        public List<Recipe> GetRecipes(string keyword)
+        public List<Recipe> GetRecipes(List<string> keywords)
         {
             List<Recipe> recipes = new List<Recipe>();
             List<int> cocktailIDs = new List<int>();
@@ -168,6 +168,8 @@ namespace thebarback.Data
             builder.Password = "Negroni1";
             builder.InitialCatalog = "thebarbackdb";
             builder.MultipleActiveResultSets = true;
+
+            List<string> cols = new List<string> { "StyleName", "CocktailName", "[Description]", "Preparation", "GarnishName", "TagName", "IngredientName" };
 
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
@@ -184,27 +186,8 @@ namespace thebarback.Data
                 sb.Append("LEFT JOIN Garnish g ON cg.GarnishID = g.GarnishID ");
                 sb.Append("LEFT JOIN Drinkware d ON c.DrinkwareID = d.DrinkwareID ");
                 sb.Append("LEFT JOIN Style s ON s.StyleID = c.StyleID ");
-                sb.Append("WHERE StyleName LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR CocktailName LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR [Description] LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR Preparation LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR GarnishName LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR TagName LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
-                sb.Append("OR IngredientName LIKE '%");
-                sb.Append(keyword);
-                sb.Append("%' ");
+                sb.Append("WHERE  ");
+                sb.Append(BuildWhere(cols, keywords));
                 sb.Append("GROUP BY c.CocktailID;");
 
                 string sql = sb.ToString();
@@ -225,7 +208,7 @@ namespace thebarback.Data
                 }
             }
 
-            foreach(int ID in cocktailIDs)
+            foreach (int ID in cocktailIDs)
             {
                 Recipe recipe = GetRecipe(ID);
                 recipes.Add(recipe);
@@ -234,11 +217,38 @@ namespace thebarback.Data
             return recipes;
         }
 
-        public List<Recipe> GetRecipes(List<string> keywords)
+        private string BuildWhere(List<string> cols, List<string> keywords)
         {
-            //Return a list of CocktailIDs?
-            //Then use GetRecipe for each individual lookup?
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            string[] words = new string[keywords.Count];
+            for(int i = 0; i < words.Length; i++)
+            {
+                words[i] = keywords[i];
+            }
+
+            foreach(string word in keywords)
+            {
+                if(word != keywords[0])
+                {
+                    sb.Append(") AND ");
+                }
+                sb.Append("(");
+                foreach(string col in cols)
+                {
+                    if(col != cols[0])
+                    {
+                        sb.Append("OR ");
+                    }
+                    sb.Append(col);
+                    sb.Append(" LIKE '%");
+                    sb.Append(word);
+                    sb.Append("%' ");
+                }
+            }
+
+            sb.Append(")");
+
+            return sb.ToString();
         }
     }
 }
